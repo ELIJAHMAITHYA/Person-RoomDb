@@ -37,26 +37,26 @@ interface UserDao {
     fun getAllUsers(): LiveData<List<Person>>
 
     @Query("SELECT * FROM Person where Name LIKE :name Order by Name")
-    fun findByName(name: String): List<Person>
+    fun findByName(name: String): LiveData<List<Person>>
 
     @Query("SELECT * FROM person WHERE Course LIKE :course Order by Name")
-    fun FindByCourse(course: String): List<Person>
+    fun FindByCourse(course: String): LiveData<List<Person>>
 
     @Query("SELECT * FROM person WHERE Age LIKE :age Order by Name")
-    fun FindByAge(age: Int): List<Person>
+    fun FindByAge(age: Int): LiveData<List<Person>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun InsertUser(vararg person: Person)
+    suspend fun InsertUser(person: Person)
 
     @Delete
-    fun DeletePerson(person: Person)
+   suspend fun DeletePerson(person: Person)
 
 
 }
 
 //Database
 
-@Database(version = 1, entities = [Person::class])
+@Database(version = 2, entities = [Person::class], exportSchema = false )
 abstract class Person_Database : RoomDatabase() {
     abstract fun userDao(): UserDao
 
@@ -69,7 +69,7 @@ abstract class Person_Database : RoomDatabase() {
                     context.applicationContext,
                     Person_Database::class.java,
                     "Person_Database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

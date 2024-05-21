@@ -1,6 +1,7 @@
 package com.example.roomdb.Presentation.Insert_Screen
 
 
+import android.util.Log
 import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -99,6 +100,7 @@ class Insert_Users_Screen_textfield_ViewModel(private val repository: Person_Rep
         return true
     }
     private fun insertUser(person: Person) {
+        Log.d("Insert", "insertUser: ViewModel Called  ")
         viewModelScope.launch {
             repository.insertUser(person)
         }
