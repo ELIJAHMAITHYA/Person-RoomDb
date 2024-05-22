@@ -14,6 +14,7 @@ import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 
 //Data Entity
@@ -34,7 +35,7 @@ data class Person(
 @Dao
 interface UserDao {
     @Query("SELECT * FROM Person ORDER BY Name")
-    fun getAllUsers(): LiveData<List<Person>>
+    fun getAllUsers(): Flow<List<Person>>
 
     @Query("SELECT * FROM Person where Name LIKE :name Order by Name")
     fun findByName(name: String): LiveData<List<Person>>

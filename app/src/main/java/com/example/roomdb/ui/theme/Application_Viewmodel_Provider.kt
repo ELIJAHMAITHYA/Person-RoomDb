@@ -7,12 +7,21 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.roomdb.Person_Application
 import com.example.roomdb.Presentation.Insert_Screen.Insert_Users_Screen_textfield_ViewModel
+import com.example.roomdb.Presentation.Users_Screen.Users_Screen_ViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
 
         initializer {
             Insert_Users_Screen_textfield_ViewModel(
+                person_Application().container.personRepository
+            )
+        }
+
+    }
+    val Users_Factory = viewModelFactory {
+        initializer {
+            Users_Screen_ViewModel(
                 person_Application().container.personRepository
             )
         }

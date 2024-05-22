@@ -5,9 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.roomdb.Presentation.Insert_Screen.Insert_Users_Screen_textfield_ViewModel
+import kotlinx.coroutines.flow.Flow
 
 class Person_Repository(private val personDao: UserDao) {
-    val allUsers: LiveData<List<Person>> = personDao.getAllUsers()
+    fun getAllUsers(): Flow<List<Person>> = personDao.getAllUsers()
 
    fun findByName(name: String): LiveData<List<Person>> {
         return personDao.findByName(name)
@@ -29,6 +30,7 @@ class Person_Repository(private val personDao: UserDao) {
     suspend fun deleteUser(person: Person) {
         personDao.DeletePerson(person)
     }
+
 }
 
 

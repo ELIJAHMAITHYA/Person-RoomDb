@@ -47,8 +47,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.roomdb.Data.Person
 import com.example.roomdb.Data.Person_Repository
+import com.example.roomdb.Navigation.AppRoutes
 import com.example.roomdb.R
 import com.example.roomdb.constants.Insert_user_textFields
 import com.example.roomdb.constants.details_textFields
@@ -59,7 +61,8 @@ import com.example.roomdb.ui.theme.RoomDbTheme
 @Composable
 fun Insert_User_Screen(
     modifier: Modifier = Modifier,
-    viewModel: Insert_Users_Screen_textfield_ViewModel= viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: Insert_Users_Screen_textfield_ViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavHostController,
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
@@ -120,7 +123,7 @@ fun Insert_User_Screen(
                 keyboardType = KeyboardType.Email,
 
                 )
-
+            Spacer(modifier = Modifier.height(12.dp))
             details_textFields(
                 value = viewModel.Age,
                 placeholder = " Enter age e.g 24 ",
@@ -129,7 +132,7 @@ fun Insert_User_Screen(
                 keyboardType = KeyboardType.Number,
 //            modifier = modifier.padding(horizontal = 24.dp)
             )
-
+            Spacer(modifier = Modifier.height(12.dp))
             details_textFields(
                 value = viewModel.Phone_number,
                 placeholder = " e.g 0797968532 ",
@@ -138,7 +141,7 @@ fun Insert_User_Screen(
                 keyboardType = KeyboardType.Number,
 //            modifier = modifier.padding(horizontal = 24.dp)
             )
-
+            Spacer(modifier = Modifier.height(12.dp))
             details_textFields(
                 value = viewModel.course,
                 placeholder = " e.g Computer Science",
@@ -148,7 +151,7 @@ fun Insert_User_Screen(
 //            modifier = modifier.padding(horizontal = 24.dp)
             )
 
-
+            Spacer(modifier = Modifier.height(12.dp))
             Insert_user_textFields(
                 value = viewModel.email,
                 placeholder = " Enter email @gmail.com",
@@ -159,7 +162,7 @@ fun Insert_User_Screen(
                 keyboardType = KeyboardType.Email,
 //            modifier = modifier.padding(horizontal = 24.dp)
             )
-
+            Spacer(modifier = Modifier.height(12.dp))
             Insert_user_textFields(
                 value = viewModel.password,
                 placeholder = " ******** ",
@@ -176,6 +179,7 @@ fun Insert_User_Screen(
                 onClick = {
                     focusManager.clearFocus()
                     if (viewModel.submitInfo()) {
+                        navController.navigate(AppRoutes.UsersScreen.route)
                         Toast.makeText(
                             context,
                             "Information Added Successfully",
